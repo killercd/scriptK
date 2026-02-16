@@ -1,42 +1,46 @@
 # scriptK
 
-Script per scrivere velocemente e simulare copia/incolla in ambienti dove la clipboard è disabilitata.
+**scriptK** is a minimal Windows utility written in pure C that
+simulates keyboard typing to input text into systems where **clipboard
+and copy/paste are disabled**.
 
-## Versione C (Windows)
+It sends real keyboard events using native Win32 APIs (`SendInput`),
+without using the clipboard.
 
-Implementazione in **C puro** con sole **API native Windows** e interfaccia Win32 minimale.
+------------------------------------------------------------------------
 
-### Requisiti
+## Features
 
-- Windows
-- Compilatore: MSVC (Visual Studio) oppure MinGW-w64 (gcc)
+-   Text typing simulation\
+-   Multiline input support\
+-   Configurable start delay\
+-   No clipboard usage\
+-   Native Win32 GUI\
+-   No external dependencies
 
-### Compilazione
+------------------------------------------------------------------------
 
-**Con Microsoft Visual C (Developer Command Prompt):**
-```bat
+## Build
+
+### MSVC
+
+``` bash
 cl scriptK.c user32.lib
 ```
 
-**Con MinGW-w64 (es. `x86_64-w64-mingw32-gcc`):**
-```bat
+### MinGW
+
+``` bash
 x86_64-w64-mingw32-gcc scriptK.c -o scriptK.exe -luser32 -mwindows -municode
 ```
 
-`-mwindows` crea un’applicazione finestra (senza console).
+------------------------------------------------------------------------
 
-### Utilizzo
+## Usage
 
-1. Avviare `scriptK.exe`.
-2. Incollare o digitare il testo nella casella "Text data:".
-3. Impostare i secondi di attesa in "Waiting seconds:" (0 = nessuna attesa).
-4. Cliccare **Start**.
-5. Confermare il messaggio "Waiting N seconds...".
-6. Dopo N secondi (o subito se 0), posizionare il focus nella finestra di destinazione: il testo verrà battuto carattere per carattere (ritardo 250 ms, come nella versione Python).
+1.  Enter text in the text box\
+2.  Set delay (seconds)\
+3.  Click **Start**\
+4.  Focus the target window\
+5.  Text is typed automatically
 
-### Comportamento
-
-- La digitazione avviene in un thread separato, così la finestra resta utilizzabile.
-- Si usa `SendInput` con `KEYEVENTF_UNICODE` per supportare caratteri Unicode.
-- Nessuna dipendenza da .NET o da librerie esterne: solo `user32` e CRT standard.
-# scriptK
