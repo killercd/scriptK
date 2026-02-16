@@ -1,0 +1,1 @@
+x86_64-w64-mingw32-gcc scriptK.c -o scriptK.exe -luser32 -mwindows -municode -static -static-libgcc -static-libstdc++
