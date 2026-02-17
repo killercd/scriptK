@@ -14,8 +14,9 @@
 #include <string.h>
 #include <wchar.h>
 
-#define IDC_TEXTAREA     101
-#define IDC_SECONDS      102
+#define IDC_TEXTAREA        101
+#define IDC_SECONDS         102
+#define TEXTAREA_MAX_CHARS  2000000
 #define IDC_BUTTON_START 103
 #define IDC_SELECTALL    104
 #define IDC_COPY         105
@@ -363,6 +364,7 @@ static LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lPara
             WS_CHILD | WS_VISIBLE | WS_BORDER | WS_VSCROLL | WS_HSCROLL
             | ES_MULTILINE | ES_AUTOVSCROLL | ES_AUTOHSCROLL | ES_WANTRETURN,
             padx, y, 480, 120, hwnd, (HMENU)(INT_PTR)IDC_TEXTAREA, NULL, NULL);
+        SendMessageW(g_hwndText, EM_SETLIMITTEXT, (WPARAM)TEXTAREA_MAX_CHARS, 0);
         y += 120 + pady;
 
         CreateWindowW(L"Static", L"Waiting seconds:", WS_CHILD | WS_VISIBLE,
